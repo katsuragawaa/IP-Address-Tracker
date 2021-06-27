@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_KEY = "at_YwX40CyFo8od9bPksXydoerniHvnf";
+const API_KEY = process.env.REACT_APP_IPIFY_API;
 
 type IpifyResponse = {
   ip: string;

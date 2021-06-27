@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Result } from "./components/Result";
-import { getLocation } from "./services/ipify";
+import { getLocation } from "./services/apiIpify";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -47,6 +47,7 @@ function App() {
         <Result title="timezone" content={timezone} />
         <Result title="isp" content={isp} />
       </div>
+
     </div>
   );
 }
