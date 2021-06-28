@@ -2,7 +2,7 @@
   "name": "ip-address-tracker",
   "version": "0.1.0",
   "private": true,
-  "home": "https://github.com/katsuragawaa/ip-address-tracker",
+  "home": "https://katsuragawaa.github.io/ip-address-tracker/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -26,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
