@@ -3,7 +3,9 @@ import { Result } from "./components/Result";
 import { getLocation } from "./services/apiIpify";
 import { Map, Marker, TileLayer } from "react-leaflet";
 
-import "./style.css";
+import buttonArrow from "./assets/images/icon-arrow.svg";
+
+import "./style.scss";
 
 function App() {
   // setup hooks
@@ -12,7 +14,7 @@ function App() {
   const [location, setLocation] = useState("");
   const [timezone, setTimezone] = useState("");
   const [isp, setIsp] = useState("");
-  const [coordinates, setCoordinates] = useState<any>([-25.441105, -49.276855]); // quick workaround 
+  const [coordinates, setCoordinates] = useState<any>([-25.441105, -49.276855]); // quick workaround
 
   // get user IP address on access
   useEffect(() => {
@@ -54,7 +56,9 @@ function App() {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
-          <button>&gt;</button>
+          <button>
+            <img src={buttonArrow} alt="arrow button" />
+          </button>
         </form>
       </header>
       <div className="container">
