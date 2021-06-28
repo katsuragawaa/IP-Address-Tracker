@@ -15,6 +15,7 @@ type IpifyResponse = {
   isp: string;
 };
 
+// check if user input it's a IP address
 function validateIpAddress(ipAddress: string) {
   if (
     /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
@@ -28,6 +29,8 @@ function validateIpAddress(ipAddress: string) {
 
 export async function getLocation(search: string) {
   let url: string;
+  
+  // search according to input type
   if (validateIpAddress(search)) {
     url = `https://geo.ipify.org/api/v1?apiKey=${API_KEY}&ipAddress=${search}`;
   } else {
@@ -35,7 +38,6 @@ export async function getLocation(search: string) {
   }
   const apiResponse = await axios.get(url);
   const result: IpifyResponse = apiResponse.data;
-  console.log(result);
 
   return {
     ipAddress: result.ip,
@@ -43,10 +45,7 @@ export async function getLocation(search: string) {
     country: result.location.country,
     postalCode: result.location.postalCode,
     timezone: result.location.timezone,
-    coordinates: {
-      lat: result.location.lat,
-      lng: result.location.lng,
-    },
+    coordinates: [result.location.lat, result.location.lng],
     isp: result.isp,
   };
 }

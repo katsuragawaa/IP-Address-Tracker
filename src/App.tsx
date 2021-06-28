@@ -1,13 +1,28 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Result } from "./components/Result";
 import { getLocation } from "./services/apiIpify";
+import { Map, Marker, TileLayer } from "react-leaflet";
+
+import "./style.css";
 
 function App() {
+  // setup hooks
   const [search, setSearch] = useState("");
   const [ipAddress, setIpAddress] = useState("");
   const [location, setLocation] = useState("");
   const [timezone, setTimezone] = useState("");
   const [isp, setIsp] = useState("");
+  const [coordinates, setCoordinates] = useState<any>([-25.441105, -49.276855]); // quick workaround 
+
+  // get user IP address on access
+  useEffect(() => {
+    async function getUserIp() {
+      const response = await fetch("https://geolocation-db.com/json/");
+      const data = await response.json();
+      setSearch(data.IPv4);
+    }
+    getUserIp();
+  }, []);
 
   async function handleButtonClick(event: FormEvent) {
     event.preventDefault();
@@ -21,6 +36,7 @@ function App() {
       );
       setTimezone(`UTC ${searchResult.timezone}`);
       setIsp(searchResult.isp);
+      setCoordinates(searchResult.coordinates);
     } catch (error) {
       alert("Invalid IP or Domain");
     }
@@ -47,7 +63,20 @@ function App() {
         <Result title="timezone" content={timezone} />
         <Result title="isp" content={isp} />
       </div>
-
+      <div>
+        <Map center={coordinates} zoom={14}>
+          <TileLayer
+            url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            maxZoom={18}
+            id="mapbox/streets-v11"
+            tileSize={512}
+            zoomOffset={-1}
+            accessToken={process.env.REACT_APP_MAPBOX_KEY}
+          />
+          <Marker position={coordinates} />
+        </Map>
+      </div>
     </div>
   );
 }
