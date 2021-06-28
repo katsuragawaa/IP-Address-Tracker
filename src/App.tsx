@@ -68,7 +68,7 @@ function App() {
         <Result title="isp" content={isp} />
       </div>
       <div>
-        <Map center={coordinates} zoom={14}>
+        <Map center={coordinates} zoom={14} scrollWheelZoom={false}>
           <TileLayer
             url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
