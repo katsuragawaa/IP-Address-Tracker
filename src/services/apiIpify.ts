@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const API_KEY = process.env.REACT_APP_IPIFY_API;
 
 type IpifyResponse = {
