@@ -40,27 +40,9 @@ function App() {
     async function getUserIp() {
       const response = await fetch("https://geolocation-db.com/json/");
       const data = await response.json();
-      return data.IPv4;
+      setSearch(data.IPv4);
     }
     getUserIp();
-
-    async function updateResult() {
-      try {
-        const searchResult = await getLocation(search);
-
-        setIpAddress(searchResult.ipAddress);
-        setLocation(
-          `${searchResult.city}, ${searchResult.country} ${searchResult.postalCode}`
-        );
-        setTimezone(`UTC ${searchResult.timezone}`);
-        setIsp(searchResult.isp);
-        setCoordinates(searchResult.coordinates);
-      } catch (error) {
-        alert("Invalid IP or Domain");
-      }
-      setSearch("");
-    }
-    updateResult();
   }, []);
 
   return (
