@@ -14,7 +14,7 @@ function App() {
   const [location, setLocation] = useState("");
   const [timezone, setTimezone] = useState("");
   const [isp, setIsp] = useState("");
-  const [coordinates, setCoordinates] = useState<any>([-25.441105, -49.276855]); // quick workaround
+  const [coordinates, setCoordinates] = useState<any>([-25.441105, -49.276855]);
 
   async function handleButtonClick(event: FormEvent) {
     event.preventDefault();
@@ -31,8 +31,9 @@ function App() {
       setCoordinates(searchResult.coordinates);
     } catch (error) {
       alert("Invalid IP or Domain");
+    } finally {
+      setSearch("");
     }
-    setSearch("");
   }
 
   // get user IP address on access
